@@ -7,6 +7,8 @@ const app = express();
 //New Routes = New architecture
 const logsRoute = require('./routes/logs');
 const answersRoute = require('./routes/answers');
+const projectsRoute = require('./routes/projects');
+const teamsRoute = require('./routes/teams');
 
 //setting the app
 app.use(bodyParser.urlencoded({ extended : true }));
@@ -16,6 +18,8 @@ app.use(cors());
 //server-uri/api
 app.use('/api',logsRoute);
 app.use('/api', answersRoute);
+app.use('/api', projectsRoute);
+app.use('/api', teamsRoute);
 
 //setting the app
 const port = process.env.PORT || 3000;
