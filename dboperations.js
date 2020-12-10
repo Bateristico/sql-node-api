@@ -36,8 +36,8 @@ const addLog = async(executionLog) => {
         let insertExecutionLog = await pool.request()  
         .input('Date', sql.DateTime, executionLog.Date)
         .input('Time', sql.DateTime, executionLog.Time)
-        .input('Description', sql.NChar, executionLog.Description)
-        .input('BotName', sql.NChar, executionLog.BotName)
+        .input('Description', sql.NChar, executionLog.Description.trimEnd())
+        .input('BotName', sql.NChar, executionLog.BotName.trimEnd())
         .query("INSERT INTO _tb_ggs_bot_log (Date, Time, Description, BotName) VALUES (@Date, @Time, @Description, @BotName)");
 
         return "New log added...";
@@ -65,13 +65,13 @@ const addAnswer = async(answer) => {
     try {
         let pool = await sql.connect(config);
         let insertAnswer = await pool.request()
-        .input('Question', sql.NChar, answer.Question)  
-        .input('Answer', sql.NChar, answer.Answer)
+        .input('Question', sql.NChar, answer.Question.trimEnd())  
+        .input('Answer', sql.NChar, answer.Answer.trimEnd())
         .input('Date', sql.DateTime, answer.Date)
         .input('Time', sql.DateTime, answer.Time)
-        .input('EmployeeName', sql.NChar, answer.EmployeeName)
-        .input('EmployeeEmail', sql.NChar, answer.EmployeeEmail)
-        .input('SlackId', sql.NChar, answer.SlackId)
+        .input('EmployeeName', sql.NChar, answer.EmployeeName.trimEnd())
+        .input('EmployeeEmail', sql.NChar, answer.EmployeeEmail.trimEnd())
+        .input('SlackId', sql.NChar, answer.SlackId.trimEnd())
         .query("INSERT INTO _tb_ggs_bot_answers (Question, Answer, Date, Time, EmployeeName, EmployeeEmail, SlackId) \
         VALUES (@Question, @Answer, @Date, @Time, @EmployeeName, @EmployeeEmail, @SlackId)");
 
@@ -101,19 +101,19 @@ const addProjectStatus = async(projectStatus) => {
     try {
         let pool = await sql.connect(config);
         let insertProject = await pool.request()
-        .input('ProjectName', sql.NChar, projectStatus.ProjectName)  
-        .input('Stage', sql.NChar, projectStatus.Stage)
-        .input('Budget', sql.NChar, projectStatus.Budget)
-        .input('TimeLine', sql.NChar, projectStatus.TimeLine)
-        .input('Percentage', sql.NChar, projectStatus.Percentage)
-        .input('Risks', sql.NChar, projectStatus.Risks)
-        .input('ImportantBusiness', sql.NChar, projectStatus.ImportantBusiness)
-        .input('OverallStatus', sql.NChar, projectStatus.OverallStatus)
+        .input('ProjectName', sql.NChar, projectStatus.ProjectName.trimEnd())  
+        .input('Stage', sql.NChar, projectStatus.Stage.trimEnd())
+        .input('Budget', sql.NChar, projectStatus.Budget.trimEnd())
+        .input('TimeLine', sql.NChar, projectStatus.TimeLine.trimEnd())
+        .input('Percentage', sql.NChar, projectStatus.Percentage.trimEnd())
+        .input('Risks', sql.NChar, projectStatus.Risks.trimEnd())
+        .input('ImportantBusiness', sql.NChar, projectStatus.ImportantBusiness.trimEnd())
+        .input('OverallStatus', sql.NChar, projectStatus.OverallStatus.trimEnd())
         .input('Date', sql.DateTime, projectStatus.Date)
         .input('Time', sql.DateTime, projectStatus.Time)
-        .input('EmployeeName', sql.NChar, projectStatus.EmployeeName)
-        .input('EmployeeEmail', sql.NChar, projectStatus.EmployeeEmail)
-        .input('SlackId', sql.NChar, projectStatus.SlackId)
+        .input('EmployeeName', sql.NChar, projectStatus.EmployeeName.trimEnd())
+        .input('EmployeeEmail', sql.NChar, projectStatus.EmployeeEmail.trimEnd())
+        .input('SlackId', sql.NChar, projectStatus.SlackId.trimEnd())
 
 
         .query("INSERT INTO _tb_ggs_project_status (ProjectName, Stage, Budget, TimeLine, Percentage, Risks, ImportantBusiness, OverallStatus, \
@@ -161,8 +161,6 @@ const getTeamManagers = async() => {
         console.log(error);
     }
 };
-
-
 
 
 
